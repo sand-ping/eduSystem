@@ -7,11 +7,11 @@
       </div>
       <div class="loginWrap-center">
         <div class="loginWrap-center-view">
-          <div class="label">帐号</div>
+          <div class="label">帐号：</div>
           <el-input v-model="user" placeholder="请输入帐号"></el-input>
         </div>
         <div class="loginWrap-center-view">
-          <div class="label">密码</div>
+          <div class="label">密码：</div>
           <el-input v-model="password" placeholder="请输入密码"></el-input>
         </div>
       </div>
@@ -30,5 +30,5 @@ export default{
 }
 </script>
 <style lang="scss" scoped>
-
+  @import "./../sass/login.scss";
 </style>
