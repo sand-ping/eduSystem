@@ -11,8 +11,8 @@
             <div class="loginWrap-header-line-left" :style="loginModel==0?'background:#108cee':''"></div>
             <div class="loginWrap-header-line-right" :style="loginModel==1?'background:#108cee':''"></div>
           </div>
-          <div class="header-stu">学生登录</div>
-          <div class="header-tea">教师登录</div>
+          <div class="header-stu" @click="clickHeader">学生登录</div>
+          <div class="header-tea" @click="clickHeader">教师登录</div>
         </div>
         <div class="messageWrap">
           <div class="message">短信快捷登陆</div>
@@ -34,6 +34,24 @@ export default{
       user:"",
       password:"",
       loginModel:0,
+    }
+  },
+  created:function () {
+    this.login();
+  },
+  methods:{
+    clickHeader:function () {
+      if(this.loginModel==0){
+        this.loginModel=1;
+      }else{
+        this.loginModel=0;
+      }
+    },
+    login:function () {
+      console.log("loginmethods")
+      this.$http.post("/api/login",{"user":"ceshi1","password":"123456"}).then((res)=>{
+        console.log(res)
+      })
     }
   }
 }

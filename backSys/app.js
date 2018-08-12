@@ -17,11 +17,11 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));//自动解析参数
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/', indexRouter);
+app.use('/api/login', indexRouter);
 app.use('/api/users', usersRouter);
 
 // catch 404 and forward to error handler
