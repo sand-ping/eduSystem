@@ -21,7 +21,7 @@
           <el-input v-model="user" placeholder="请输入帐号" class="loginWrap-center-input"></el-input>
           <el-input v-model="password" placeholder="请输入密码" class="loginWrap-center-input"></el-input>
         </div>
-        <div class="login">登录</div>
+        <div class="login" @click="login">登录</div>
       </div>
     </div>
 
@@ -37,7 +37,7 @@ export default{
     }
   },
   created:function () {
-    this.login();
+
   },
   methods:{
     clickHeader:function () {
@@ -47,10 +47,38 @@ export default{
         this.loginModel=0;
       }
     },
+    getPara:function () {
+      let root=this;
+      if(root.user.trim()==""){
+        root.$message({
+          message:"帐号不能为空",
+          type:'error',
+        })
+        return false;
+      }else if(root.password.trim()==""){
+        root.$message({
+          message:"密码不能为空",
+          type:'error',
+        })
+        return false;
+      }
+      return true;
+    },
     login:function () {
-      console.log("loginmethods")
-      this.$http.post("/api/login",{"user":"ceshi1","password":"123456"}).then((res)=>{
+      let root=this;
+      if(!root.getPara()){
+        return
+      }
+      this.$http.post("/api/login",{"num":root.user,"password":root.password}).then((res)=>{
         console.log(res)
+        if(res.body.success){
+
+        }else{
+          root.$message({
+            type:"error",
+            message:res.body.message
+          })
+        }
       })
     }
   }

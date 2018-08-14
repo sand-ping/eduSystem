@@ -16,11 +16,11 @@ router.get('/', function(req, res, next) {
       console.log(err);
       return;
     }
-    for(var i in rows){
-      console.log(rows);
-      var temp=rows[i].id;
-      console.log(temp);
-    }
+    // for(var i in rows){
+    //   console.log(rows);
+    //   var temp=rows[i].id;
+    //   console.log(temp);
+    // }
     result=JSON.stringify(rows);//转换成JSON String格式
     console.log(result);
     res.end(result);
@@ -30,8 +30,26 @@ router.get('/', function(req, res, next) {
   // res.render('index', { title: 'Express' });
 });
 router.post('/',function (req,res,next) {
-  var body=req.body;
-  console.log(body);
-  console.log(body.user)
+  let data={};
+  let body=req.body;
+  let sql="select * from student where snum=? and spwd=?";
+  connection.query(sql,[body.num,body.password],function (err,rows) {
+    console.log('postlogin',err,rows);
+    if(err){
+      data.success=false;
+      data.data="";
+      data.message=err;
+    }else if(rows.length==0){
+      data.success=false;
+      data.data=""
+      data.message="帐号或密码错误";
+    }else{
+      data.success=true;
+      data.data=rows;
+      data.message="";
+    }
+    res.send(data)
+
+  })
 });
 module.exports = router;
