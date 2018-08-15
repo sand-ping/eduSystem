@@ -11,6 +11,7 @@ export default {
 </script>
 
 <style>
+@import "./assets/style/iconfont.scss";
 html,body{
   width:100%;
   height: 100%;

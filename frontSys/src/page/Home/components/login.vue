@@ -72,7 +72,7 @@ export default{
       this.$http.post("/api/login",{"num":root.user,"password":root.password}).then((res)=>{
         console.log(res)
         if(res.body.success){
-
+          root.$router.push({ path: 'home' })
         }else{
           root.$message({
             type:"error",
