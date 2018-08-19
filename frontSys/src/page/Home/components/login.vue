@@ -8,14 +8,16 @@
       <div class="loginWrap">
         <div class="loginWrap-header">
           <div class="loginWrap-header-line">
-            <div class="loginWrap-header-line-left" :style="loginModel==0?'background:#108cee':''"></div>
-            <div class="loginWrap-header-line-right" :style="loginModel==1?'background:#108cee':''"></div>
+            <div class="loginWrap-header-line-left" :style="loginModel==0?'background:#108cee':''" v-show="loginModel!=2"></div>
+            <div class="loginWrap-header-line-right" :style="loginModel==1?'background:#108cee':''" v-show="loginModel!=2"></div>
           </div>
-          <div class="header-stu" @click="clickHeader">学生登录</div>
-          <div class="header-tea" @click="clickHeader">教师登录</div>
+          <div class="header-stu" @click="clickHeader(0)" v-show="loginModel!=2">学生登录</div>
+          <div class="header-tea" @click="clickHeader(1)" v-show="loginModel!=2">教师登录</div>
+          <div class="header-man" @click="clickHeader(2)" v-show="loginModel==2">管理员登录</div>
         </div>
         <div class="messageWrap">
-          <div class="message">短信快捷登陆</div>
+          <div class="message" @click="clickHeader(2)" v-show="loginModel!=2">管理员登录</div>
+          <div class="message" @click="clickHeader(0)" v-show="loginModel==2">学生教师登录</div>
         </div>
         <div class="loginWrap-center">
           <el-input v-model="user" placeholder="请输入帐号" class="loginWrap-center-input"></el-input>
@@ -40,12 +42,8 @@ export default{
 
   },
   methods:{
-    clickHeader:function () {
-      if(this.loginModel==0){
-        this.loginModel=1;
-      }else{
-        this.loginModel=0;
-      }
+    clickHeader:function (e) {
+      this.loginModel=e;
     },
     getPara:function () {
       let root=this;
@@ -69,10 +67,25 @@ export default{
       if(!root.getPara()){
         return
       }
-      this.$http.post("/api/login",{"num":root.user,"password":root.password}).then((res)=>{
+      var api="";
+      var gopath=""
+      if(root.loginModel==0){
+        api="/api/loginS";
+        gopath="home";
+      }else if(root.loginModel==1){
+        api="/api/loginT";
+        gopath="home";
+      }else if(root.loginModel==2){
+        api="/api/loginM";
+        gopath="homeManager";
+      }
+      this.$http.post(api,{"num":root.user,"password":root.password}).then((res)=>{
         console.log(res)
+        console.log(res.body.data[0])
+        let userInfo=JSON.stringify(res.body.data[0])
         if(res.body.success){
-          root.$router.push({ path: 'home' })
+          localStorage.setItem('userInfo',userInfo);
+          root.$router.push({ path: gopath })
         }else{
           root.$message({
             type:"error",

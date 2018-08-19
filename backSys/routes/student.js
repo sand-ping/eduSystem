@@ -12,21 +12,22 @@ var connection = mysql.createConnection(db.mysql);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var sql = "select * from manager"
-  var result;
-  connection.query(sql,function (err, rows) {
+  var sid=req.body.sid;
+  var sql = "select * from student where sid=?"
+  connection.query(sql,[sid],function (err, rows) {
     if(err){
-      console.log(err);
-      return;
+      faData.message=err;
+      res.send(faData)
+      return
     }
-    result=JSON.stringify(rows);//转换成JSON String格式
-    console.log(result);
-    res.end(result);
+    suData.data=rows;
+    res.send(suData)
+    return
 
   })
-  console.log(result);
 });
 router.post('/',function (req,res,next) {
+  let data={};
   let body=req.body;
   let sql="select * from student where snum=? and spwd=?";
   connection.query(sql,[body.num,body.password],function (err,rows) {

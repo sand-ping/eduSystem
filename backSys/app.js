@@ -8,6 +8,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var studentRouter = require('./routes/student');
+var managerRouter = require('./routes/manager');
 
 var app = express();
 
@@ -21,8 +23,13 @@ app.use(express.urlencoded({ extended: false }));//自动解析参数
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/login', indexRouter);
+app.use('/api/loginM', managerRouter);
+app.use('/api/loginS', studentRouter);
 app.use('/api/users', usersRouter);
+
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
