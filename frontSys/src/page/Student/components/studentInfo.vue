@@ -1,58 +1,43 @@
 <template>
   <div class="wrap">
     <div class="wrapCenter">
-      <el-row>
-        <el-col :span="12">
-          <div class="row">
-            <div class="row-title">头像：</div>
-            <div class="row-text">
-              <el-upload
-                class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :show-file-list="false"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                <i class="el-icon avatar-uploader-icon" v-else ></i>
-              </el-upload>
-            </div>
-          </div>
-        </el-col>
-
-        <el-col :span="12">
-          <div class="row">
-            <div class="row-title">姓名：</div>
-            <div class="row-text">
-              <el-input :disabled="disable" :value="studentInfo.sname"></el-input>
-            </div>
-          </div>
-          <div class="row">
-            <div class="row-title">学号：</div>
-            <div class="row-text">
-              <el-input :disabled="disable" :value="studentInfo.snum"></el-input>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row>
-
-        <el-col :span="12">
-          <div class="row">
-            <div class="row-title">性别：</div>
-            <div class="row-text">
-              <el-input :disabled="disable" :value="studentInfo.ssex==0?'男':'女'"></el-input>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="12">
-          <div class="row">
-            <div class="row-title">出生年月：</div>
-            <div class="row-text">
-              <el-input :disabled="disable" :value="studentInfo.sbirthday"></el-input>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
+      <div class="wrapCenter-left">
+        <div class="view">
+          <div class="view-left">姓名：</div>
+          <div class="view-right">{{studentInfo.sname}}</div>
+        </div>
+        <div class="view">
+          <div class="view-left">性别：</div>
+          <div class="view-right">{{studentInfo.ssex==0?"男":"女"}}</div>
+        </div>
+        <div class="view">
+          <div class="view-left">名族：</div>
+          <div class="view-right">{{studentInfo.snation}}</div>
+        </div>
+        <div class="view">
+          <div class="view-left">出生年月：</div>
+          <div class="view-right">{{studentInfo.sbirthday}}</div>
+        </div>
+        <div class="view">
+          <div class="view-left">学号：</div>
+          <div class="view-right">{{studentInfo.snum}}</div>
+        </div>
+        <div class="view">
+          <div class="view-left">身份证号：</div>
+          <div class="view-right">{{studentInfo.sidentityId}}</div>
+        </div>
+      </div>
+      <div class="wrapCenter-right">
+        <el-upload
+          class="avatar-uploader"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <i class="el-icon-plus avatar-uploader-icon" v-else></i>
+        </el-upload>
+      </div>
     </div>
   </div>
 </template>
@@ -98,6 +83,6 @@
     }
   }
 </script>
-<style lang="scss" scoped="">
+<style lang="scss" scoped>
   @import "../sass/studentInfo";
 </style>
