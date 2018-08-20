@@ -7,7 +7,7 @@
   flex-shrink: 0;
   width: 230px;
   height:100%;
-  transition: width 1s;
+  transition: width 0.5s;
   .wrapper-left-top{
     position: relative;
     z-index: 1000;
@@ -20,9 +20,10 @@
       flex-shrink: 1;
       width: calc(230px - 66px);
       height: 100%;
-      background: url("../../../assets/images/logo.png");
+      background: url("../../../assets/images/logo1.png");
       background-position: center center;
-      background-size: 100% 100%;
+      background-size: 60px 60px;
+      background-repeat: no-repeat;
     }
     .wrapper-shrink{
       flex-shrink: 0;

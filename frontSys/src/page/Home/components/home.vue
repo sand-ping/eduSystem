@@ -49,10 +49,14 @@ export default{
     collapseClick:function () {
       let root=this;
       if(root.isCollapse){
-        root.isCollapse=false;
+        setTimeout(function () {
+          root.isCollapse=false;
+        },500)
         root.leftWidth=230;
       }else{
-        root.isCollapse=true;
+        setTimeout(function () {
+          root.isCollapse=true;
+        },500)
         root.leftWidth=66;
       }
     }

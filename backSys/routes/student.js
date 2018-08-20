@@ -6,28 +6,28 @@ var returnData = require('../public/returnData');
 var suData=returnData.suData;
 var faData=returnData.faData;
 
-var connection = mysql.createConnection(db.mysql);
 
+var connection = mysql.createConnection(db.mysql);
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var sid=req.body.sid;
-  var sql = "select * from student where sid=?"
-  connection.query(sql,[sid],function (err, rows) {
+  let param=req.query;
+  var sql = "select * from student where sid=?";
+  console.log(req,param,)
+  connection.query(sql,[param.sid],function (err, rows) {
     if(err){
       faData.message=err;
       res.send(faData)
       return
     }
-    suData.data=rows;
+    suData.data=rows[0];
     res.send(suData)
     return
 
   })
 });
 router.post('/',function (req,res,next) {
-  let data={};
   let body=req.body;
   let sql="select * from student where snum=? and spwd=?";
   connection.query(sql,[body.num,body.password],function (err,rows) {
