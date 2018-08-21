@@ -11,7 +11,7 @@
           <div class="view-right">{{studentInfo.ssex==0?"男":"女"}}</div>
         </div>
         <div class="view">
-          <div class="view-left">名族：</div>
+          <div class="view-left">民族：</div>
           <div class="view-right">{{studentInfo.snation}}</div>
         </div>
         <div class="view">
@@ -30,9 +30,11 @@
       <div class="wrapCenter-right">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="http://127.0.0.1:3000/api/upPhoto"
+          name="img"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
+          :on-error="error"
           :before-upload="beforeAvatarUpload">
           <img v-if="imageUrl" :src="imageUrl" class="avatar">
           <i class="el-icon-plus avatar-uploader-icon" v-else></i>
@@ -65,7 +67,11 @@
           }
         })
       },
+      error(res, file) {
+        console.log(res,file)
+      },
       handleAvatarSuccess(res, file) {
+        console.log(res,file)
         this.imageUrl = URL.createObjectURL(file.raw);
       },
       beforeAvatarUpload(file) {

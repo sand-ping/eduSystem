@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var studentRouter = require('./routes/student');
 var managerRouter = require('./routes/manager');
+var upPhotoRouter = require('./routes/upPhoto');
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/loginM', managerRouter);
 app.use('/api/loginS', studentRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/upPhoto', upPhotoRouter);
 
 
 
