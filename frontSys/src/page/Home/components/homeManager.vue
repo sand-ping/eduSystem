@@ -3,15 +3,15 @@
     <div class="wrapper-left" :style="'width:'+leftWidth+'px'">
       <div class="wrapper-left-top">
         <div class="wrapper-logo"></div>
-        <div class="wrapper-shrink iconfont icon-zuoshuangjiantou" @click="collapseClick"></div>
+        <div :class="'wrapper-shrink iconfont '+(isCollapse?'icon-youshuangjiantou':'icon-zuoshuangjiantou')" @click="collapseClick"></div>
       </div>
-      <el-menu default-active="1-4-1" class="wrapper-left-body" @open="" @close="" :collapse="isCollapse" :unique-opened="true" collapse-transition="0.01s">
-        <el-submenu index="1">
+      <el-menu default-active="1-4-1" class="wrapper-left-body" @open="" @close="" :collapse="isCollapse" :unique-opened="true" :collapse-transition="false" :router="true">
+        <el-submenu index="/homeManager">
           <template slot="title">
             <i class="wrapper-left-left-icon iconfont icon-yonghudianji"></i>
             <span slot="title">学生管理</span>
           </template>
-          <el-menu-item index="1-1">个人信息</el-menu-item>
+          <el-menu-item index="/homeManager">学生列表</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">
@@ -60,5 +60,5 @@
   }
 </script>
 <style lang="scss" scoped>
-  @import "../sass/home.scss";
+  @import "../sass/homeManager.scss";
 </style>

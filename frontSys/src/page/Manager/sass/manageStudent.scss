@@ -1,0 +1,20 @@
+.wrap-center{
+  width: 100%;
+  height:calc(100% - 48px);
+  .cell{
+    text-align: center;
+  }
+}
+.el-pagination{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin:0;
+  padding: 10px 15px;
+  text-align:right;
+  z-index: 1999;
+  box-sizing: border-box;
+  border-top: 1px solid #d1dbe5;
+  background: #eef1f6;
+}

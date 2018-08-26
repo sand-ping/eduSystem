@@ -33,7 +33,7 @@ export default new Router({
       component:HomeManager,
       children:[
         {
-          path:'/manageStudent',
+          path:'',
           name:'ManageStudent',
           component:ManageStudent,
         }

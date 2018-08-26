@@ -7,7 +7,7 @@
   flex-shrink: 0;
   width: 230px;
   height:100%;
-  transition: width 1s;
+  transition: width 0.5s;
   .wrapper-left-top{
     position: relative;
     z-index: 1000;
@@ -20,9 +20,10 @@
       flex-shrink: 1;
       width: calc(230px - 66px);
       height: 100%;
-      background: url("../../../assets/images/logo.png");
-      background-position: center center;
-      background-size: 100% 100%;
+      background: url("../../../assets/images/logo1.png");
+      background-position: 20px center;
+      background-size: 50px 50px;
+      background-repeat: no-repeat;
     }
     .wrapper-shrink{
       flex-shrink: 0;
@@ -31,6 +32,8 @@
       line-height:60px;
       color: #eee;
       font-size:20px;
+      cursor: pointer;
+      text-align: center;
     }
   }
   .wrapper-left-body {
@@ -55,4 +58,10 @@
     background: #333;
     box-shadow: 0 1px 5px 1px #606266;
   }
+  .wrap{
+    position: relative;
+    width: 100%;
+    height:calc(100% - 60px);
+  }
 }
+
