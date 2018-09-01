@@ -2,12 +2,23 @@ var express = require('express');
 var router = express.Router();
 var mysql  = require('mysql');
 var db = require('../public/db');
+var con_db = require('../public/con_db');
 var returnData = require('../public/returnData');
 var suData=returnData.suData;
 var faData=returnData.faData;
 
+var connection = con_db.connection;
+// var connection = mysql.createConnection(db.mysql);
+// connection.on('error', function(err) {
+//   console.log('db error', err);
+//   if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+//     connection = mysql.createConnection(db.mysql);
+//   }else{
+//     throw err;
+//   }
+// });
 
-var connection = mysql.createConnection(db.mysql);
+
 
 
 /* GET home page. */

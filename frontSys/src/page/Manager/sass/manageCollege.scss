@@ -1,13 +1,13 @@
 .wrap-center{
   width: 100%;
   height:calc(100% - 48px);
-}
-.wrap-table{
   .cell{
-    text-align: center !important;
+    text-align: center;
   }
 }
-.el-pagination{
+.footer{
+  display:flex;
+  justify-content: space-between;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -19,4 +19,16 @@
   box-sizing: border-box;
   border-top: 1px solid #d1dbe5;
   background: #eef1f6;
+  .footer-left{
+    display: flex;
+    .footer-left-view{
+
+      transform: scale(0.8);
+    }
+  }
+  .el-pagination{
+    height: 40px;
+    line-height: 40px;
+  }
 }
+

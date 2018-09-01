@@ -18,20 +18,20 @@
             <i class="wrapper-left-left-icon iconfont icon-kecheng"></i>
             <span slot="title">教工管理</span>
           </template>
-          <el-menu-item index="2-1">选项1</el-menu-item>
+          <el-menu-item index="2-1">教师管理</el-menu-item>
           <el-menu-item index="2-2">选项2</el-menu-item>
         </el-submenu>
-        <el-submenu index="3">
+        <el-submenu index="/homeManager/manageCollege">
           <template slot="title">
             <i class="wrapper-left-left-icon iconfont icon-chengji"></i>
             <span slot="title">学院管理</span>
           </template>
-          <el-menu-item index="3-1">选项1</el-menu-item>
-          <el-menu-item index="3-2">选项2</el-menu-item>
+          <el-menu-item index="/homeManager/manageCollege">学院管理</el-menu-item>
+          <el-menu-item index="3-2">班级管理</el-menu-item>
         </el-submenu>
       </el-menu>
     </div>
-    <div class="wrapper-right">
+    <div class="wrapper-right" :style="'width:calc(100% - '+leftWidth+'px)'">
       <div class="wrapper-right-top"></div>
       <router-view></router-view>
     </div>

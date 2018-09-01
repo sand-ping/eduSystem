@@ -5,6 +5,7 @@ import HomeManager from '@/page/Home/components/homeManager'
 import Login from '@/page/Home/components/login'
 import StudentInfo from '@/page/Student/components/studentInfo'
 import ManageStudent from '@/page/Manager/components/manageStudent'
+import ManageCollege from '@/page/Manager/components/manageCollege'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
           path:'',
           name:'ManageStudent',
           component:ManageStudent,
+        },
+        {
+          path:'manageCollege',
+          name:'ManageCollege',
+          component:ManageCollege,
         }
       ]
 

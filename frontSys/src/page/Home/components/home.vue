@@ -31,7 +31,7 @@
         </el-submenu>
       </el-menu>
     </div>
-    <div class="wrapper-right">
+    <div class="wrapper-right" :style="'width:calc(100% - '+leftWidth+'px)'">
       <div class="wrapper-right-top"></div>
       <router-view></router-view>
     </div>
