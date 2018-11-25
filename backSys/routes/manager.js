@@ -6,11 +6,12 @@ var returnData = require('../public/returnData');
 var suData=returnData.suData;
 var faData=returnData.faData;
 
-var connection=mysql.createConnection(db.mysql);
+
 
 router.post('/',function (req,res,next) {
   let body=req.body;
-  var sql="select * from manager where mnum=? and mpwd=?"
+  var sql="select * from manager where man_num=? and man_pwd=?"
+  let connection=mysql.createConnection(db.mysql);
   connection.query(sql,[body.num,body.password],function (err,rows) {
     if(err){
       faData.message=err;

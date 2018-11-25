@@ -74,7 +74,7 @@ export default{
         gopath="home";
       }else if(root.loginModel==1){
         api="/api/loginT";
-        gopath="home";
+        gopath="teacherHome";
       }else if(root.loginModel==2){
         api="/api/loginM";
         gopath="homeManager";

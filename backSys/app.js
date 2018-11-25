@@ -13,6 +13,8 @@ var managerRouter = require('./routes/manager');
 var manager_college = require('./routes/manager_college');
 var getStudentListRouter = require('./routes/getStudentList');
 var upPhotoRouter = require('./routes/upPhoto');
+var teacherRouter=require('./routes/teacher');
+var getTeacherInfoRouter=require('./routes/getTeacherInfo');
 
 var app = express();
 // view engine setup
@@ -29,6 +31,8 @@ app.use(express.urlencoded({ extended: false }));//自动解析参数
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api/getTeacherInfo',getTeacherInfoRouter);
+app.use('/api/loginT', teacherRouter);
 app.use('/api/loginM', managerRouter);
 app.use('/api/loginS', studentRouter);
 app.use('/api/users', usersRouter);

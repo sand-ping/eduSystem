@@ -32,7 +32,21 @@
       </el-menu>
     </div>
     <div class="wrapper-right" :style="'width:calc(100% - '+leftWidth+'px)'">
-      <div class="wrapper-right-top"></div>
+      <div class="wrapper-right-top">
+        <el-menu
+          :router="true"
+          class="el-menu-demo"
+          mode="horizontal"
+          background-color="#333"
+          text-color="#fff"
+          active-text-color="rgb(255, 208, 75)">
+          <el-menu-item index="1">个人信息</el-menu-item>
+          <el-submenu index="2">
+            <template slot="title"><span class="iconfont icon-geren wrapper-right-top-icon"></span>名字</template>
+            <el-menu-item index="/"><span class="iconfont icon-tuichu1 wrapper-right-top-item-icon"></span>退出</el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </div>
       <router-view></router-view>
     </div>
   </div>

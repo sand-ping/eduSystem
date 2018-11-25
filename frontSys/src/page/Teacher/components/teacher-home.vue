@@ -5,46 +5,45 @@
         <div class="wrapper-logo"></div>
         <div :class="'wrapper-shrink iconfont '+(isCollapse?'icon-youshuangjiantou':'icon-zuoshuangjiantou')" @click="collapseClick"></div>
       </div>
-      <el-menu default-active="1-4-1" class="wrapper-left-body" @open="" @close="" :collapse="isCollapse" :unique-opened="true" :collapse-transition="false" :router="true">
-        <el-submenu index="/homeManager">
+      <el-menu default-active="1-4-1" class="wrapper-left-body" @open="" @close="" :collapse="isCollapse" :unique-opened="true" :collapse-transition="false">
+        <el-submenu index="1">
           <template slot="title">
             <i class="wrapper-left-left-icon iconfont icon-yonghudianji"></i>
-            <span slot="title">学生管理</span>
+            <span slot="title">教师信息</span>
           </template>
-          <el-menu-item index="/homeManager">学生列表</el-menu-item>
+          <el-menu-item index="1-1">个人信息</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">
             <i class="wrapper-left-left-icon iconfont icon-kecheng"></i>
-            <span slot="title">教工管理</span>
+            <span slot="title">班级管理</span>
           </template>
-          <el-menu-item index="2-1">教师管理</el-menu-item>
-          <el-menu-item index="2-2">选项2</el-menu-item>
+          <el-menu-item index="2-1">所教班级</el-menu-item>
+          <el-menu-item index="2-2">班级查询</el-menu-item>
         </el-submenu>
-        <el-submenu index="/homeManager/manageCollege">
+        <el-submenu index="3">
           <template slot="title">
             <i class="wrapper-left-left-icon iconfont icon-chengji"></i>
-            <span slot="title">学院管理</span>
+            <span slot="title">成绩管理</span>
           </template>
-          <el-menu-item index="/homeManager/manageCollege">学院管理</el-menu-item>
-          <el-menu-item index="3-2">班级管理</el-menu-item>
+          <el-menu-item index="3-1">选项1</el-menu-item>
+          <el-menu-item index="3-2">选项2</el-menu-item>
         </el-submenu>
       </el-menu>
     </div>
     <div class="wrapper-right" :style="'width:calc(100% - '+leftWidth+'px)'">
       <div class="wrapper-right-top">
         <el-menu
-          :default-active="activeIndex2"
-          class="el-menu-demo"
-          mode="horizontal"
-          @select="handleSelect"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b">
+            :router="true"
+            class="el-menu-demo"
+            mode="horizontal"
+            background-color="#333"
+            text-color="#fff"
+            active-text-color="rgb(255, 208, 75)">
           <el-menu-item index="1">个人信息</el-menu-item>
           <el-submenu index="2">
-            <template slot="title">名字</template>
-            <el-menu-item index="2-1">退出</el-menu-item>
+            <template slot="title"><span class="iconfont icon-geren wrapper-right-top-icon"></span>名字</template>
+            <el-menu-item index="/"><span class="iconfont icon-tuichu1 wrapper-right-top-item-icon"></span>退出</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>
@@ -64,10 +63,14 @@
       collapseClick:function () {
         let root=this;
         if(root.isCollapse){
-          root.isCollapse=false;
+          setTimeout(function () {
+            root.isCollapse=false;
+          },500)
           root.leftWidth=230;
         }else{
-          root.isCollapse=true;
+          setTimeout(function () {
+            root.isCollapse=true;
+          },500)
           root.leftWidth=66;
         }
       }
@@ -75,5 +78,5 @@
   }
 </script>
 <style lang="scss" scoped>
-  @import "../sass/homeManager.scss";
+  @import "../sass/teacher-home.scss";
 </style>

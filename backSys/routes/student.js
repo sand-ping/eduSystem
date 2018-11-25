@@ -2,12 +2,13 @@ var express = require('express');
 var router = express.Router();
 var mysql  = require('mysql');
 var db = require('../public/db');
-var con_db = require('../public/con_db');
+// var con_db = require('../public/con_db');
 var returnData = require('../public/returnData');
 var suData=returnData.suData;
 var faData=returnData.faData;
 
-var connection = con_db.connection;
+// var connection = con_db.connection;
+// var connection=mysql.createConnection(db.mysql);
 // var connection = mysql.createConnection(db.mysql);
 // connection.on('error', function(err) {
 //   console.log('db error', err);
@@ -24,25 +25,29 @@ var connection = con_db.connection;
 /* GET home page. */
 router.get('/', function(req, res, next) {
   let param=req.query;
-  var sql = "select * from student where sid=?";
-  console.log(req,param,)
-  connection.query(sql,[param.sid],function (err, rows) {
+  var sql = "select * from student where stu_id=?";
+  let connection=mysql.createConnection(db.mysql);
+  connection.query(sql,[param.id],function (err, rows) {
     if(err){
       faData.message=err;
       res.send(faData)
       return
     }
-    suData.data=rows[0];
-    res.send(suData)
+    let data=rows[0];
+    data.stu_birth_date=rows[0].stu_birth_date.toLocaleDateString();
+    suData.data=data;
+
+    res.send(suData);
+
     return
 
   })
 });
 router.post('/',function (req,res,next) {
   let body=req.body;
-  let sql="select * from student where snum=? and spwd=?";
+  let sql="select * from student where stu_num=? and stu_psw=?";
+  let connection=mysql.createConnection(db.mysql);
   connection.query(sql,[body.num,body.password],function (err,rows) {
-    console.log('postlogin',err,rows);
     if(err){
       faData.message=err;
       res.send(faData)

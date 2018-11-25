@@ -4,38 +4,38 @@
       <div class="wrapCenter-left">
         <div class="view">
           <div class="view-left">姓名：</div>
-          <div class="view-right">{{studentInfo.stu_name}}</div>
+          <div class="view-right">{{teacherInfo.tea_name}}</div>
         </div>
         <div class="view">
           <div class="view-left">性别：</div>
-          <div class="view-right">{{studentInfo.stu_sex==0?"男":"女"}}</div>
+          <div class="view-right">{{teacherInfo.tea_sex==0?"男":"女"}}</div>
         </div>
         <div class="view">
           <div class="view-left">民族：</div>
-          <div class="view-right">{{studentInfo.stu_nation}}</div>
+          <div class="view-right">{{teacherInfo.tea_nation}}</div>
         </div>
         <div class="view">
           <div class="view-left">出生年月：</div>
-          <div class="view-right">{{studentInfo.stu_birth_date}}</div>
+          <div class="view-right">{{teacherInfo.tea_birth_date}}</div>
         </div>
         <div class="view">
           <div class="view-left">学号：</div>
-          <div class="view-right">{{studentInfo.stu_num}}</div>
+          <div class="view-right">{{teacherInfo.tea_num}}</div>
         </div>
         <div class="view">
           <div class="view-left">身份证号：</div>
-          <div class="view-right">{{studentInfo.stu_identity_card}}</div>
+          <div class="view-right">{{teacherInfo.tea_identity_card}}</div>
         </div>
       </div>
       <div class="wrapCenter-right">
         <el-upload
-          class="avatar-uploader"
-          action="http://127.0.0.1:3000/api/upPhoto"
-          name="img"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :on-error="error"
-          :before-upload="beforeAvatarUpload">
+            class="avatar-uploader"
+            action="http://127.0.0.1:3000/api/upPhoto"
+            name="img"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :on-error="error"
+            :before-upload="beforeAvatarUpload">
           <img v-if="imageUrl" :src="imageUrl" class="avatar">
           <i class="el-icon-plus avatar-uploader-icon" v-else></i>
         </el-upload>
@@ -49,21 +49,21 @@
       return{
         imageUrl: '',
         disable:true,
-        studentInfo:{},
+        teacherInfo:{},
 
       }
     },
     created(){
-      this.getStudentInfo()
+      this.getTeacherInfo()
     },
     methods:{
-      getStudentInfo:function () {
+      getTeacherInfo:function () {
         let userInfo=localStorage.getItem("userInfo");
         userInfo=JSON.parse(userInfo);
         console.log(userInfo,"userInfo")
-        this.$http.get('/api/loginS',{params: {"id":userInfo.stu_id}}).then((res)=>{
+        this.$http.get('/api/getTeacherInfo',{params: {"id":userInfo.tea_id}}).then((res)=>{
           if(res.body.success){
-            this.studentInfo=res.body.data;
+            this.teacherInfo=res.body.data;
           }
         })
       },
@@ -90,5 +90,5 @@
   }
 </script>
 <style lang="scss" scoped>
-  @import "../sass/studentInfo";
+  @import "../sass/teacher-info";
 </style>
