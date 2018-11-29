@@ -70,26 +70,26 @@ export default{
       var api="";
       var gopath=""
       if(root.loginModel==0){
-        api="/api/loginS";
+        api="loginS";
         gopath="home";
       }else if(root.loginModel==1){
-        api="/api/loginT";
+        api="loginT";
         gopath="teacherHome";
       }else if(root.loginModel==2){
-        api="/api/loginM";
+        api="loginM";
         gopath="homeManager";
       }
-      this.$http.post(api,{"num":root.user,"password":root.password}).then((res)=>{
-        console.log(res)
-        console.log(res.body.data[0])
-        let userInfo=JSON.stringify(res.body.data[0])
-        if(res.body.success){
+      this.Http.post(api,{"num":root.user,"password":root.password}).then((res)=>{
+        //如果是vueresource请求返回的数据为res.body.data
+        console.log(res.data.data)
+        let userInfo=JSON.stringify(res.data.data)
+        if(res.data.success){
           localStorage.setItem('userInfo',userInfo);
           root.$router.push({ path: gopath })
         }else{
           root.$message({
             type:"error",
-            message:res.body.message
+            message:res.data.message
           })
         }
       })

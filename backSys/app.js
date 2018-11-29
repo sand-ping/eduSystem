@@ -4,6 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var isNeedToken=require('./public/is_need_token');  //验证接口是否需要token
+var tokenMethods=require('./public/token')    //token的生成和验证
+var returnData = require('./public/returnData');  //返回数据格式
+var faData=returnData.faData;
+
 
 
 var indexRouter = require('./routes/index');
@@ -30,6 +35,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));//自动解析参数
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//设置token拦截
+app.use(function(req, res, next) {
+  console.log(req.url,req.method)
+  if(isNeedToken(req.url,req.method)){
+    let token=req.headers.Authorization;
+    let result=tokenMethods.verifyToken(token);
+    if(!result.success){
+      faData.message=result.message;
+      res.status(203);
+      res.send(faData);
+      return;
+    }
+  }
+  //若没有拦截到，就行匹配下一个接口·
+  next();
+});
 
 app.use('/api/getTeacherInfo',getTeacherInfoRouter);
 app.use('/api/loginT', teacherRouter);

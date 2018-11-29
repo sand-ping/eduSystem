@@ -5,7 +5,10 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
-import VueResource from 'vue-resource'
+import VueResource from 'vue-resource';
+import Http from '@/public/http'
+
+Vue.prototype.Http = Http;
 
 Vue.use(ElementUI);
 Vue.use(VueResource);
