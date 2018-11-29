@@ -83,8 +83,11 @@ export default{
         //如果是vueresource请求返回的数据为res.body.data
         console.log(res.data.data)
         let userInfo=JSON.stringify(res.data.data)
+        console.log(res.data.data)
         if(res.data.success){
           localStorage.setItem('userInfo',userInfo);
+          console.log(res.data.data.token)
+          localStorage.setItem('token',res.data.data.token);
           root.$router.push({ path: gopath })
         }else{
           root.$message({

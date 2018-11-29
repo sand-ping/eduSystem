@@ -38,10 +38,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //设置token拦截
 app.use(function(req, res, next) {
-  console.log(req.url,req.method)
   if(isNeedToken(req.url,req.method)){
-    let token=req.headers.Authorization;
+    let token=req.headers.authorization;
     let result=tokenMethods.verifyToken(token);
+    console.log(result)
     if(!result.success){
       faData.message=result.message;
       res.status(203);

@@ -61,9 +61,10 @@
         let userInfo=localStorage.getItem("userInfo");
         userInfo=JSON.parse(userInfo);
         console.log(userInfo,"userInfo")
-        this.$http.get('/api/loginS',{params: {"id":userInfo.stu_id}}).then((res)=>{
-          if(res.body.success){
-            this.studentInfo=res.body.data;
+        this.Http.get('loginS',{"id":userInfo.stu_id}).then((res)=>{
+          console.log(res)
+          if(res.data.success){
+            this.studentInfo=res.data.data;
           }
         })
       },

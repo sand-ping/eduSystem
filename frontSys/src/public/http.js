@@ -9,7 +9,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.interceptors.request.use(
   config => {
     let token =localStorage.getItem('token');
-    if (token) {
+    if (token&&token!=undefined) {
       // config.headers.Authorization ='Bearer ${token}';
       config.headers.Authorization =token;
     }
@@ -22,11 +22,12 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     // 后台token更新，则修改localstorage的token
-    if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
-    }
     console.log('拦截')
     console.log(response)
+    // if (response.data!=undefined&&response.data.token) {
+    //   localStorage.setItem('token', response.data.token);
+    // }
+
     switch(response.status){
       case 202:
         Notification.warning({

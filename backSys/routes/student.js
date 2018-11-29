@@ -3,6 +3,7 @@ var router = express.Router();
 var mysql  = require('mysql');
 var db = require('../public/db');
 // var con_db = require('../public/con_db');
+var Token=require('../public/token');
 var returnData = require('../public/returnData');
 var suData=returnData.suData;
 var faData=returnData.faData;
@@ -57,7 +58,9 @@ router.post('/',function (req,res,next) {
       res.send(faData)
       return
     }else{
-      suData.data=rows;
+      let token=Token.getToken(0,rows[0].stu_id)
+      suData.data=rows[0];
+      suData.data.token=token;
       res.send(suData)
       return
     }
