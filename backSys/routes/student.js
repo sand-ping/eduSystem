@@ -20,10 +20,6 @@ var faData=returnData.faData;
 //   }
 // });
 
-
-
-
-/* GET home page. */
 router.get('/', function(req, res, next) {
   let param=req.query;
   var sql = "select * from student where stu_id=?";
