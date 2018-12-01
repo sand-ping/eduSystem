@@ -3,8 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mysql=require('mysql');
-var db=require('./public/db');
 
 
 var isNeedToken=require('./public/is_need_token');  //验证接口是否需要token
@@ -42,41 +40,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next) {
   if(isNeedToken(req.url,req.method)){
     let token=req.headers.authorization;
-    let result=tokenMethods.verifyToken(token);
-    if(!result.success){
-      faData.message=result.message;
-      res.status(203);
-      res.send(faData);
-      return;
-    }else{
-      let sql=result.sql;
-      var connection=mysql.createConnection(db.mysql);
-      connection.query(sql,function (err,row) {
-        if(err){
-          faData.message=result.message;
-          res.status(203);
-          res.send(faData);
-          return;
-          // root.return={success:false,message:"token错误"}
-        }else{
-          if(row.length==0){
-            faData.message='用户不存在';
-            res.status(203);
-            res.send(faData);
-            return;
-          }else{
-            //若没有拦截到，就行匹配下一个接口·
-            next();
-          }
-
-        }
-      })
-    }
+    let promise1=tokenMethods.verifyToken(token);
+    promise1.then(function (result) {
+      if(result.success){
+        next()
+      }else{
+        res.status(203);
+        res.send(result);
+        return;
+      }
+    })
   }else{
     //若没有拦截到，就行匹配下一个接口·
     next();
   }
-
 });
 
 app.use('/api/getTeacherInfo',getTeacherInfoRouter);
@@ -87,9 +64,6 @@ app.use('/api/users', usersRouter);
 app.use('/api/upPhoto', upPhotoRouter);
 app.use('/api/getStudentList', getStudentListRouter);
 app.use('/api/manager_college', manager_college);
-
-
-
 
 
 // catch 404 and forward to error handler

@@ -27,7 +27,6 @@ axios.interceptors.response.use(
     // if (response.data!=undefined&&response.data.token) {
     //   localStorage.setItem('token', response.data.token);
     // }
-
     switch(response.status){
       case 202:
         Notification.warning({
@@ -42,10 +41,7 @@ axios.interceptors.response.use(
           title: '提示',
           message: '用户信息认证失败~~'
         });
-
-        // }
         localStorage.removeItem('token');
-
         router.replace({
           path: '/',
           query: {redirect: router.currentRoute.fullPath}
@@ -87,15 +83,18 @@ export default {
       header:{
         'X-Requested-With': 'XMLHttpRequest',
       },
-      transformRequest: [function (data) {
-        // 对 data 进行任意转换处理
-        // return data;
-      }],
-      // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
-      transformResponse: [function (data) {
-        // 对 data 进行任意转换处理
-        // return data;
-      }],
+      // transformRequest: [function (data) {
+      //   // 对 data 进行任意转换处理
+      //   // return data;
+      // }],
+      // // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
+      // transformResponse: [function (data) {
+      //   // 对 data 进行任意转换处理
+      //   console.log(data)
+      //
+      //   return data
+      //
+      // }],
     }).catch((error)=>{
       console.log(error.message)
     })

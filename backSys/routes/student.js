@@ -33,11 +33,8 @@ router.get('/', function(req, res, next) {
     let data=rows[0];
     data.stu_birth_date=rows[0].stu_birth_date.toLocaleDateString();
     suData.data=data;
-
     res.send(suData);
-
     return
-
   })
 });
 router.post('/',function (req,res,next) {

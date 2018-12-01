@@ -50,7 +50,6 @@
         imageUrl: '',
         disable:true,
         studentInfo:{},
-
       }
     },
     created(){
