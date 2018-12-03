@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <pra-title title-ch="学院管理" title-en="COLLEGE INFORMATION"></pra-title>
     <div class="wrap-center">
       <el-table :data="studentList" style="width: 100%" class="wrap-table">
         <el-table-column prop="snum" label="学院编号" width="180"></el-table-column>
@@ -34,7 +35,7 @@
     methods:{
       getStudentList:function () {
         let root=this;
-        this.$http.get("/api/manager_college",{"page":root.currentPage,"pageSize":root.pageSize}).then((res)=>{
+        this.Http.get("/api/manager_college",{"page":root.currentPage,"pageSize":root.pageSize}).then((res)=>{
           if(res.data.success){
             root.studentList=res.data.data.data;
             root.total=res.data.data.count;

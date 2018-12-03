@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <pra-title title-ch="个人信息" title-en="USER INFORMATION"></pra-title>
     <div class="wrapCenter">
       <div class="wrapCenter-left">
         <div class="view">
@@ -60,7 +61,7 @@
         let userInfo=localStorage.getItem("userInfo");
         userInfo=JSON.parse(userInfo);
         console.log(userInfo,"userInfo")
-        this.Http.get('loginS',{"id":userInfo.stu_id}).then((res)=>{
+        this.Http.get('stuInfo',{"id":userInfo.stu_id}).then((res)=>{
           console.log(res)
           if(res.data.success){
             this.studentInfo=res.data.data;

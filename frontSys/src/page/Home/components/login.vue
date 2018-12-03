@@ -77,7 +77,7 @@ export default{
         gopath="teacherHome";
       }else if(root.loginModel==2){
         api="loginM";
-        gopath="homeManager";
+        gopath="managerHome";
       }
       this.Http.post(api,{"num":root.user,"password":root.password}).then((res)=>{
         //如果是vueresource请求返回的数据为res.body.data

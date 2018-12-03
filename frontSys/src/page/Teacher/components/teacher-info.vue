@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <pra-title title-ch="个人信息" title-en="USER INFORMATION"></pra-title>
     <div class="wrapCenter">
       <div class="wrapCenter-left">
         <div class="view">
@@ -61,9 +62,9 @@
         let userInfo=localStorage.getItem("userInfo");
         userInfo=JSON.parse(userInfo);
         console.log(userInfo,"userInfo")
-        this.$http.get('/api/getTeacherInfo',{params: {"id":userInfo.tea_id}}).then((res)=>{
-          if(res.body.success){
-            this.teacherInfo=res.body.data;
+        this.Http.get('/api/teaInfo',{params: {"id":userInfo.tea_id}}).then((res)=>{
+          if(res.data.success){
+            this.teacherInfo=res.data.data;
           }
         })
       },

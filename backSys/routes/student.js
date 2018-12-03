@@ -20,23 +20,7 @@ var faData=returnData.faData;
 //   }
 // });
 
-router.get('/', function(req, res, next) {
-  let param=req.query;
-  var sql = "select * from student where stu_id=?";
-  let connection=mysql.createConnection(db.mysql);
-  connection.query(sql,[param.id],function (err, rows) {
-    if(err){
-      faData.message=err;
-      res.send(faData)
-      return
-    }
-    let data=rows[0];
-    data.stu_birth_date=rows[0].stu_birth_date.toLocaleDateString();
-    suData.data=data;
-    res.send(suData);
-    return
-  })
-});
+
 router.post('/',function (req,res,next) {
   let body=req.body;
   let sql="select * from student where stu_num=? and stu_psw=?";

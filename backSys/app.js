@@ -16,10 +16,11 @@ var usersRouter = require('./routes/users');
 var studentRouter = require('./routes/student');
 var managerRouter = require('./routes/manager');
 var manager_college = require('./routes/manager_college');
-var getStudentListRouter = require('./routes/getStudentList');
+var stuListRouter = require('./routes/stuList');
+var stuInfoRouter = require('./routes/stuInfo');
 var upPhotoRouter = require('./routes/upPhoto');
 var teacherRouter=require('./routes/teacher');
-var getTeacherInfoRouter=require('./routes/getTeacherInfo');
+var teaInfoRouter=require('./routes/teaInfo');
 
 var app = express();
 // view engine setup
@@ -56,13 +57,14 @@ app.use(function(req, res, next) {
   }
 });
 
-app.use('/api/getTeacherInfo',getTeacherInfoRouter);
+app.use('/api/teaInfo',teaInfoRouter);
 app.use('/api/loginT', teacherRouter);
 app.use('/api/loginM', managerRouter);
 app.use('/api/loginS', studentRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/upPhoto', upPhotoRouter);
-app.use('/api/getStudentList', getStudentListRouter);
+app.use('/api/stuList', stuListRouter);
+app.use('/api/stuInfo',stuInfoRouter);
 app.use('/api/manager_college', manager_college);
 
 

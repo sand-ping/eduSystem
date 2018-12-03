@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <pra-title title-ch="学生管理" title-en="STUDENT MANAGER"></pra-title>
     <div class="wrap-center">
       <el-table :data="studentList" style="width: 100%" class="wrap-table">
         <el-table-column prop="snum" label="学号" width="180"></el-table-column>
@@ -28,10 +29,10 @@ export default{
   methods:{
     getStudentList:function () {
       let root=this;
-      this.$http.get("/api/getStudentList",{"page":root.currentPage,"pageSize":root.pageSize}).then((res)=>{
+      this.Http.get("/api/stuList",{"page":root.currentPage,"pageSize":root.pageSize}).then((res)=>{
         if(res.data.success){
-          root.studentList=res.data.data.data;
-          root.total=res.data.data.count;
+          root.studentList=res.data.data;
+          root.total=res.data.count;
         }
       })
     },

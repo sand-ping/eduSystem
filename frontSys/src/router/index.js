@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/page/Home/components/home'
-import HomeManager from '@/page/Home/components/homeManager'
 import Login from '@/page/Home/components/login'
 import StudentInfo from '@/page/Student/components/studentInfo'
+import ManagerHome from '@/page/Manager/components/manager-home'
 import ManageStudent from '@/page/Manager/components/manageStudent'
 import ManageCollege from '@/page/Manager/components/manageCollege'
 import TeacherHome from '@/page/Teacher/components/teacher-home'
@@ -43,9 +43,9 @@ export default new Router({
       ]
     },
     {
-      path:'/homeManager',
-      name:'HomeManager',
-      component:HomeManager,
+      path:'/managerHome',
+      name:'ManagerHome',
+      component:ManagerHome,
       children:[
         {
           path:'',

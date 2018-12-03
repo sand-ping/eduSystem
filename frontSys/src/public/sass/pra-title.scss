@@ -1,0 +1,19 @@
+.pra-header{
+  display: flex;
+  height: 46px;
+  width: calc(100% - 48px);
+  margin:0 10px;
+  padding: 0 14px;
+  line-height:46px;
+  font-size: 19px;
+  border-bottom: 1px solid #ccc;
+}
+.pra-header-ch{
+  color: #20a0ff;
+  font-weight: 700;
+  margin-right:14px;
+}
+.pra-header-en{
+  font-size: 16px;
+  margin-left: 4px;
+}

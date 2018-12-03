@@ -34,13 +34,13 @@
     <div class="wrapper-right" :style="'width:calc(100% - '+leftWidth+'px)'">
       <div class="wrapper-right-top">
         <el-menu
-          :default-active="activeIndex2"
-          class="el-menu-demo"
-          mode="horizontal"
-          @select="handleSelect"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b">
+            :default-active="activeIndex2"
+            class="el-menu-demo"
+            mode="horizontal"
+            @select="handleSelect"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b">
           <el-menu-item index="1">个人信息</el-menu-item>
           <el-submenu index="2">
             <template slot="title">名字</template>
@@ -75,5 +75,5 @@
   }
 </script>
 <style lang="scss" scoped>
-  @import "../sass/homeManager.scss";
+  @import "../sass/manager-home.scss";
 </style>

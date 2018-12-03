@@ -17,15 +17,17 @@ router.get("/",function (req,res,next) {
   connection.query(sql,function (err, rows) {
     if(err){
       faData.message=err;
+      suData.count=count;
       res.send(faData)
       return
     }
     count=rows.length;
     returnData=rows.splice((page-1)*pageSize,pageSize)
-    console.log(returnData)
-    suData.data={}
-    suData.data.data=returnData;
-    suData.data.count=count;
+    for(let i=0;i<returnData.length;i++){
+      returnData[i].stu_birth_date=returnData[i].stu_birth_date.toLocaleDateString();
+    }
+    suData.data=returnData;
+    suData.count=count;
     res.send(suData)
     return
 
