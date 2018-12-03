@@ -2,6 +2,7 @@ var express=require('express');
 var router=express.Router();
 var mysql=require('mysql');
 var db=require('../public/db');
+var Token=require('../public/token');
 var returnData=require('../public/returnData');
 var suData=returnData.suData;
 var faData=returnData.faData;
@@ -21,7 +22,9 @@ router.post('/',function (req,res,next) {
       res.send(faData)
       return
     }else{
-      suData.data=row;
+      let token=Token.getToken(1,rows[0].tea_id);
+      suData.data=rows[0];
+      suData.data.token=token;
       res.send(suData)
       return
     }

@@ -2,7 +2,9 @@
   <div class="wrapper">
     <div class="wrapper-left" :style="'width:'+leftWidth+'px'">
       <div class="wrapper-left-top">
-        <div class="wrapper-logo"></div>
+        <div class="wrapper-logo">
+          {{isCollapse?"":"教务"}}
+        </div>
         <div :class="'wrapper-shrink iconfont '+(isCollapse?'icon-youshuangjiantou':'icon-zuoshuangjiantou')" @click="collapseClick"></div>
       </div>
       <el-menu default-active="1-4-1" class="wrapper-left-body" @open="" @close="" :collapse="isCollapse" :unique-opened="true" :collapse-transition="false">
@@ -65,12 +67,10 @@
         if(root.isCollapse){
           setTimeout(function () {
             root.isCollapse=false;
-          },500)
+          },200)
           root.leftWidth=230;
         }else{
-          setTimeout(function () {
-            root.isCollapse=true;
-          },500)
+          root.isCollapse=true;
           root.leftWidth=66;
         }
       }
