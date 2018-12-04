@@ -5,27 +5,27 @@
       <div class="wrapCenter-left">
         <div class="view">
           <div class="view-left">姓名：</div>
-          <div class="view-right">{{managerInfo.stu_name}}</div>
+          <div class="view-right">{{managerInfo.man_name}}</div>
         </div>
         <div class="view">
           <div class="view-left">性别：</div>
-          <div class="view-right">{{managerInfo.stu_sex==0?"男":"女"}}</div>
+          <div class="view-right">{{managerInfo.man_sex==0?"男":"女"}}</div>
         </div>
         <div class="view">
           <div class="view-left">民族：</div>
-          <div class="view-right">{{managerInfo.stu_nation}}</div>
+          <div class="view-right">{{managerInfo.man_nation}}</div>
         </div>
         <div class="view">
           <div class="view-left">出生年月：</div>
-          <div class="view-right">{{managerInfo.stu_birth_date}}</div>
+          <div class="view-right">{{managerInfo.man_birth_date}}</div>
         </div>
         <div class="view">
           <div class="view-left">学号：</div>
-          <div class="view-right">{{managerInfo.stu_num}}</div>
+          <div class="view-right">{{managerInfo.man_num}}</div>
         </div>
         <div class="view">
           <div class="view-left">身份证号：</div>
-          <div class="view-right">{{managerInfo.stu_identity_card}}</div>
+          <div class="view-right">{{managerInfo.man_identity_card}}</div>
         </div>
       </div>
       <div class="wrapCenter-right">

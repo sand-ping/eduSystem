@@ -4,6 +4,7 @@ import Home from '@/page/Home/components/home'
 import Login from '@/page/Home/components/login'
 import StudentInfo from '@/page/Student/components/studentInfo'
 import ManagerHome from '@/page/Manager/components/manager-home'
+import ManagerInfo from '@/page/Manager/components/manager-info'
 import ManageStudent from '@/page/Manager/components/manageStudent'
 import ManageCollege from '@/page/Manager/components/manageCollege'
 import TeacherHome from '@/page/Teacher/components/teacher-home'
@@ -20,7 +21,6 @@ export default new Router({
     },
     {
       path:'/home',
-      name:'Home',
       component:Home,
       children:[
         {
@@ -32,7 +32,6 @@ export default new Router({
     },
     {
       path:'/teacherHome',
-      name:'TeacherHome',
       component:TeacherHome,
       children:[
         {
@@ -44,11 +43,15 @@ export default new Router({
     },
     {
       path:'/managerHome',
-      name:'ManagerHome',
       component:ManagerHome,
       children:[
         {
           path:'',
+          name:'ManagerInfo',
+          component:ManagerInfo
+        },
+        {
+          path:'manageStudent',
           name:'ManageStudent',
           component:ManageStudent,
         },
@@ -58,8 +61,6 @@ export default new Router({
           component:ManageCollege,
         }
       ]
-
-
     }
   ]
 })

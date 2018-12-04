@@ -9,12 +9,47 @@ var connection = mysql.createConnection(db.mysql);
 
 router.get("/",function (req,res,next) {
   let param=req.query;
+  let searchArr=[];
   let page=param.page?param.page:1;
   let pageSize=param.pageSize?param.pageSize:10;
   let returnData="";
   let count=0;
-  var sql = "select * from student";
-  connection.query(sql,function (err, rows) {
+  // var sql = "select * from student";
+  var sql="select student.stu_name,student.stu_sex,student.stu_num from student,s_class,major,college "
+    +"where student.s_class_id=s_class.s_class_id "
+    +"and s_class.major_id=major.major_id "
+    +"and major.col_id=college.col_id "
+    +"and student.stu_num like ? "
+    +"and student.stu_name like ? "
+    +"and s_class.s_class_id like ? "
+    +"and major.major_id like ? "
+    +"and college.col_id like ?";
+  if(param.stuNum!=""){
+    searchArr.push("%"+param.stuNum+"%");
+  }else{
+    searchArr.push('%');
+  }
+  if(param.stuName!=""){
+    searchArr.push("%"+param.stuName+"%");
+  }else{
+    searchArr.push('%');
+  }
+  if(param.class_id!=""){
+    searchArr.push(param.class_id);
+  }else{
+    searchArr.push('%');
+  }
+  if(param.major_id!=""){
+    searchArr.push(param.major_id);
+  }else{
+    searchArr.push('%');
+  }
+  if(param.college_id!=""){
+    searchArr.push(param.college_id);
+  }else{
+    searchArr.push('%');
+  }
+  connection.query(sql,searchArr,function (err, rows) {
     if(err){
       faData.message=err;
       suData.count=count;
@@ -23,17 +58,15 @@ router.get("/",function (req,res,next) {
     }
     count=rows.length;
     returnData=rows.splice((page-1)*pageSize,pageSize)
-    for(let i=0;i<returnData.length;i++){
-      returnData[i].stu_birth_date=returnData[i].stu_birth_date.toLocaleDateString();
-    }
+    // for(let i=0;i<returnData.length;i++){
+    //   returnData[i].stu_birth_date=returnData[i].stu_birth_date.toLocaleDateString();
+    // }
     suData.data=returnData;
     suData.count=count;
     res.send(suData)
     return
-
   })
 })
-
 
 
 module.exports = router;

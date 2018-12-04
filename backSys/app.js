@@ -22,6 +22,9 @@ var stuInfoRouter = require('./routes/stuInfo');
 var upPhotoRouter = require('./routes/upPhoto');
 var teacherRouter=require('./routes/teacher');
 var teaInfoRouter=require('./routes/teaInfo');
+var sClassRouter=require('./routes/sClass');
+var majorRouter=require('./routes/major');
+var collegeRouter=require('./routes/college');
 
 var app = express();
 // view engine setup
@@ -68,6 +71,11 @@ app.use('/api/stuInfo',stuInfoRouter);
 app.use('/api/teaInfo',teaInfoRouter);
 app.use('/api/manInfo', manInfoRouter);
 app.use('/api/manager_college', manager_college);
+app.use('/api/sClass', sClassRouter);
+app.use('/api/major', majorRouter);
+app.use('/api/college', collegeRouter);
+
+
 
 
 // catch 404 and forward to error handler

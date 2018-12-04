@@ -18,8 +18,10 @@ router.get('/',function (req,res,next) {
       res.send(faData);
       return
     }else{
-      rows[0].tea_birth_date=rows[0].tea_birth_date.toLocaleDateString();
       suData.data=rows[0];
+      if(rows[0].man_birth_date){
+        suData.data.tea_birth_date=rows[0].tea_birth_date.toLocaleDateString();
+      }
       res.send(suData);
       return
     }

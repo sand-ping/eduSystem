@@ -7,13 +7,13 @@
         </div>
         <div :class="'wrapper-shrink iconfont '+(isCollapse?'icon-youshuangjiantou':'icon-zuoshuangjiantou')" @click="collapseClick"></div>
       </div>
-      <el-menu default-active="1-4-1" class="wrapper-left-body" @open="" @close="" :collapse="isCollapse" :unique-opened="true" :collapse-transition="false">
-        <el-submenu index="1">
+      <el-menu default-active="1-4-1" class="wrapper-left-body" @open="" @close="" :collapse="isCollapse" :unique-opened="true" :collapse-transition="true">
+        <el-submenu index="/home">
           <template slot="title">
             <i class="wrapper-left-left-icon iconfont icon-yonghudianji"></i>
             <span slot="title">学生信息</span>
           </template>
-          <el-menu-item index="1-1">个人信息</el-menu-item>
+          <el-menu-item index="/home">个人信息</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">
@@ -42,7 +42,7 @@
           background-color="#333"
           text-color="#fff"
           active-text-color="rgb(255, 208, 75)">
-          <el-menu-item index="1">个人信息</el-menu-item>
+          <el-menu-item index="/home">个人信息</el-menu-item>
           <el-submenu index="2">
             <template slot="title"><span class="iconfont icon-geren wrapper-right-top-icon"></span>名字</template>
             <el-menu-item index="/"><span class="iconfont icon-tuichu1 wrapper-right-top-item-icon"></span>退出</el-menu-item>

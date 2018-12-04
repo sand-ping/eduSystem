@@ -19,7 +19,9 @@ router.get('/', function(req, res, next) {
       return
     }
     let data=rows[0];
-    data.stu_birth_date=rows[0].stu_birth_date.toLocaleDateString();
+    if(rows[0].man_birth_date){
+      suData.data.stu_birth_date=rows[0].stu_birth_date.toLocaleDateString();
+    }
     suData.data=data;
     res.send(suData);
     return

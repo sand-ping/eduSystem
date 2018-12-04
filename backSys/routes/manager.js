@@ -13,7 +13,6 @@ router.post('/',function (req,res,next) {
   let body=req.body;
   var sql="select * from manager where man_num=? and man_psw=?"
   let connection=mysql.createConnection(db.mysql);
-  console.log(body.num,body.password)
   connection.query(sql,[body.num,body.password],function (err,rows) {
     if(err){
       faData.message=err;

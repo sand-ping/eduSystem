@@ -67,6 +67,16 @@
     height:60px;
     background: #333;
     box-shadow: 0 1px 5px 1px #606266;
+    >ul{
+      display: flex;
+      justify-content: flex-end;
+      padding:0 10px;
+      border-bottom:none;
+    }
+    .wrapper-right-top-icon{
+      margin-right: 6px;
+      font-size: 16px;
+    }
   }
   .wrap{
     position: relative;

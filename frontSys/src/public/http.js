@@ -22,8 +22,6 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     // 后台token更新，则修改localstorage的token
-    console.log('拦截')
-    console.log(response)
     // if (response.data!=undefined&&response.data.token) {
     //   localStorage.setItem('token', response.data.token);
     // }
