@@ -15,7 +15,9 @@ router.get("/",function (req,res,next) {
   let returnData="";
   let count=0;
   // var sql = "select * from student";
-  var sql="select student.stu_name,student.stu_sex,student.stu_num from student,s_class,major,college "
+  var sql="select student.stu_name,student.stu_sex,student.stu_num,student.stu_nation,student.stu_identity_card,student.stu_birth_date,student.stu_photo,"
+    +"s_class.s_class_id,s_class_name,major.major_id,major_name,college.col_id,college.col_name "
+    +"from student,s_class,major,college "
     +"where student.s_class_id=s_class.s_class_id "
     +"and s_class.major_id=major.major_id "
     +"and major.col_id=college.col_id "

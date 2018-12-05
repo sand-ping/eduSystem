@@ -29,36 +29,129 @@
               :value="item.s_class_id">
           </el-option>
         </el-select>
-
         <el-button type="primary" icon="el-icon-search" class="searchWrap-button" @click="getStudentList">搜索</el-button>
         <el-button type="primary" class="searchWrap-button" @click="reset">重置</el-button>
       </div>
       <div class="searchWrap-right"></div>
     </div>
+
     <div class="wrap-center">
       <el-table :data="studentList" style="width: 100%" class="wrap-table">
         <el-table-column prop="stu_num" label="学号" width="180"></el-table-column>
         <el-table-column prop="stu_name" label="姓名" width="180"></el-table-column>
         <el-table-column prop="stu_sex" label="性别"></el-table-column>
-
         <el-table-column
             fixed="right"
             label="操作"
             width="200">
           <template slot-scope="scope">
-            <el-button type="primary" @click="searchStuInfo(scope.row)" size="small">查看</el-button>
+            <el-button type="primary" @click="showStuInfo(scope.row)" size="small">查看</el-button>
             <el-button type="success" size="small" @click="editStuInfo(scope.row)">编辑</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
+    <!--查看或者编辑学生信息-->
+    <el-dialog :visible.sync="showStuInfoDialog" :title="isEdit?'编辑学生信息':'查看学生信息'">
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-row class="dialogRow">
+            <div class="dialogRow-left">姓名</div>
+            <el-input v-model="stuInfo.stu_name" placeholder="请输入姓名" :disabled="!isEdit"></el-input>
+          </el-row>
+          <el-row class="dialogRow">
+            <div class="dialogRow-left">性别</div>
+            <el-input v-model="stuInfo.stu_sex" placeholder="请输入性别" :disabled="!isEdit"></el-input>
+          </el-row>
+          <el-row class="dialogRow">
+            <div class="dialogRow-left">民族</div>
+            <el-input v-model="stuInfo.stu_nation" placeholder="请输入民族" :disabled="!isEdit"></el-input>
+          </el-row>
+        </el-col>
+        <el-col :span="12">
+          <el-upload
+              class="avatar-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+              :disabled="!isEdit">
+            <img v-if="stuInfo.stu_photo" :src="stuInfo.stu_photo" class="avatar">
+            <i v-else class="avatar-uploader-icon el-icon-plus"></i>
+          </el-upload>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20">
+        <el-col :span="12" class="dialogRow">
+          <div class="dialogRow-left">学号</div>
+          <el-input v-model="stuInfo.stu_num" placeholder="请输入学号" :disabled="!isEdit"></el-input>
+        </el-col>
+        <el-col :span="12" class="dialogRow">
+          <div class="dialogRow-left">身份证</div>
+          <el-input v-model="stuInfo.stu_identity_card" placeholder="请输入身份证" :disabled="!isEdit"></el-input>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20">
+        <el-col :span="12" class="dialogRow">
+          <div class="dialogRow-left">所在学院</div>
+          <el-select v-model="stuInfo.col_name" placeholder="请选择学院" @change="stuCollegeChange" :disabled="!isEdit" class="rowSelect">
+            <el-option
+                v-for="item in stu_collegeList"
+                :key="item.col_id"
+                :label="item.col_name"
+                :value="item.col_id">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="12" class="dialogRow">
+          <div class="dialogRow-left">出生年月</div>
+          <el-date-picker
+              v-model="stuInfo.stu_birth_date"
+              type="date"
+              placeholder="请选择出生年月"
+              :disabled="!isEdit"
+              class="rowPicker">
+          </el-date-picker>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="20">
+        <el-col :span="12" class="dialogRow">
+          <div class="dialogRow-left">所属专业</div>
+          <el-select v-model="stuInfo.major_name" placeholder="请选择专业" @change="stuMajorChange" :disabled="!isEdit" class="rowSelect">
+            <el-option
+                v-for="item in stu_majorList"
+                :key="item.major_id"
+                :label="item.major_name"
+                :value="item.major_id">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="12" class="dialogRow">
+          <div class="dialogRow-left">所在班级</div>
+          <el-select v-model="stuInfo.s_class_name" placeholder="请选择班级" @change="stuClassChange" :disabled="!isEdit" class="rowSelect">
+            <el-option
+                v-for="item in stu_classList"
+                :key="item.s_class_id"
+                :label="item.s_class_name"
+                :value="item.s_class_id">
+            </el-option>
+          </el-select>
+        </el-col>
+      </el-row>
+    </el-dialog>
+
     <el-pagination @size-change="getStudentList" @current-change="getStudentList" :current-page="currentPage"
       :page-sizes="[10, 20, 30]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
     </el-pagination>
   </div>
 </template>
 <script>
+  import ElCol from "element-ui/packages/col/src/col";
 export default{
+  components: {ElCol},
   data(){
     return{
       studentList:[],
@@ -69,13 +162,19 @@ export default{
       stuName:"",
       collegeIndex:"",
       collegeName:"",
-      collegeList:[],
+      collegeList:[], //搜索框中的查询列表
       majorIndex:"",
       majorName:"",
       majorList:[],
       classIndex:"",
       className:"",
       classList:[],
+      stuInfo:{}, //单个学生信息
+      isEdit:false, //标记是查看信息还是编辑信息
+      showStuInfoDialog:false,
+      stu_collegeList:[], //学生信息框中的学院列表
+      stu_majorList:[],
+      stu_classList:[],
     }
   },
   created(){
@@ -94,7 +193,6 @@ export default{
         "college_id":root.collegeIndex,
         "major_id":root.majorIndex,
         "class_id":root.classIndex,
-
       }
       this.Http.get("stuList",para).then((res)=>{
         if(res.data.success){
@@ -111,12 +209,22 @@ export default{
         }
       })
     },
-    //获取学院
-    getCollege:function () {
+    //获取学院  type=1代表查找模块的，type=2代表学生信息模块的，clear代表是否要清空
+    getCollege:function (type,clear) {
       let root=this;
       this.Http.get('college').then((res)=>{
         if(res.data.success){
-          root.collegeList=res.data.data;
+          if(type==1){
+            root.collegeIndex="";
+            root.collegeName="";
+            root.collegeList=res.data.data;
+          }else{
+            if(clear!=0){
+              root.stuInfo.col_id="";
+              root.stuInfo.col_name="";
+            }
+            root.stu_collegeList=res.data.data;
+          }
         }else{
           this.$notify({
             title: '警告',
@@ -127,11 +235,21 @@ export default{
       })
     },
     //获取专业
-    getMajor:function (option) {
+    getMajor:function (type,option,clear) {
       let root=this;
       this.Http.get('major',{"col_id":option}).then((res)=>{
         if(res.data.success){
-          root.majorList=res.data.data;
+          if(type==1){
+            root.majorIndex="";
+            root.majorName="";
+            root.majorList=res.data.data;
+          }else{
+            if(clear!=0){
+              root.stuInfo.major_id="";
+              root.stuInfo.major_name="";
+            }
+            root.stu_majorList=res.data.data;
+          }
         }else{
           this.$notify({
             title: '警告',
@@ -142,11 +260,21 @@ export default{
       })
     },
     //获取班级
-    getClass:function (option) {
+    getClass:function (type,option,clear) {
       let root=this;
       this.Http.get('sClass',{"major_id":option}).then((res)=>{
         if(res.data.success){
-          root.classList=res.data.data;
+          if(type==1){
+            root.classIndex="";
+            root.className="";
+            root.classList=res.data.data;
+          }else{
+            if(clear!=0){
+              root.stuInfo.s_class_id="";
+              root.stuInfo.s_class_name="";
+            }
+            root.stu_classList=res.data.data;
+          }
         }else{
           this.$notify({
             title: '警告',
@@ -159,16 +287,29 @@ export default{
     //学院下拉改变触发事件
     collegeChange:function (value) {
       this.collegeIndex=value;
-      this.getMajor(value)
+      this.getMajor(1,value);
+      this.getClass(1,"");
     },
     //获取专业
     majorChange:function (value) {
       this.majorIndex=value;
-      this.getClass(value)
+      this.getClass(1,value);
     },
     classChange:function (value) {
       this.classIndex=value;
-      this.classIndex=value;
+    },
+    //学生信息部分
+    stuCollegeChange:function (value) {
+      this.stuInfo.col_id=value;
+      this.getMajor(2,value)
+      this.getClass(2,"");
+    },
+    stuMajorChange:function (value) {
+      this.stuInfo.major_id=value;
+      this.getClass(2,value)
+    },
+    stuClassChange:function (value) {
+      this.stuInfo.s_class_id=value;
     },
     //重置
     reset:function () {
@@ -177,11 +318,47 @@ export default{
       this.total=0;
       this.stuNum="";
       this.stuName="";
+      this.collegeIndex="";
       this.collegeName="";
+      this.collegeList=[];
+      this.majorIndex="";
+      this.majorName="";
+      this.majorList=[];
+      this.classIndex="";
       this.className="";
       this.classList=[];
       this.getStudentList();
     },
+    //显示学生信息
+    showStuInfo:function (option) {
+      this.showStuInfoDialog=true;
+      this.stuInfo=option;
+      this.isEdit=false;
+    },
+    //编辑学生信息
+    editStuInfo:function (option) {
+      this.showStuInfoDialog=true;
+      this.stuInfo=option;
+      this.isEdit=true;
+      this.getCollege(2,0);
+      this.getMajor(2,option.col_id,0);
+      this.getClass(2,option.major_id,0);
+    },
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
+    }
   }
 }
 </script>
@@ -193,5 +370,30 @@ export default{
   /*修改组件内部样式不可以使用scoped*/
   .wrap-table .cell{
     text-align: center !important;
+  }
+</style>
+<style lang="scss">
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 154px;
+    height: 154px;
+    line-height: 154px;
+    text-align: center;
+  }
+  .avatar {
+    width: 154px;
+    height: 154px;
+    display: block;
   }
 </style>
