@@ -81,9 +81,7 @@ export default{
       }
       this.Http.post(api,{"num":root.user,"password":root.password}).then((res)=>{
         //如果是vueresource请求返回的数据为res.body.data
-        console.log(res.data.data)
         let userInfo=JSON.stringify(res.data.data)
-        console.log(res.data.data)
         if(res.data.success){
           localStorage.setItem('userInfo',userInfo);
           console.log(res.data.data.token)

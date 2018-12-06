@@ -28,26 +28,31 @@
     text-align: center !important;
   }
 }
-.dialogRow{
-  display: flex;
-  font-size: 18px;
-  height: 46px;
-  line-height: 46px;
-  margin-bottom: 10px;
-  .dialogRow-left{
-    flex-shrink: 0;
-    text-align: right;
-    width: 120px;
-    padding-right: 14px;
-  }
-  .rowPicker{
-    width: 100%;
-  }
-  .rowSelect{
-    width: 100%;
+.dialog{
+  text-align: left;
+  .dialogRow{
+    display: flex;
+    font-size: 18px;
+    height: 46px;
+    line-height: 46px;
+    margin-bottom: 10px;
+    .dialogRow-left{
+      flex-shrink: 0;
+      text-align: right;
+      width: 120px;
+      padding-right: 14px;
+    }
+    .rowPicker{
+      width: 100%;
+    }
+    .rowSelect{
+      width: 100%;
+    }
   }
 }
-.el-pagination{
+.footerWrap{
+  display: flex;
+  justify-content: space-between;
   position: absolute;
   bottom: 0;
   left: 0;

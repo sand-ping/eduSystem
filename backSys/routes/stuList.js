@@ -15,7 +15,7 @@ router.get("/",function (req,res,next) {
   let returnData="";
   let count=0;
   // var sql = "select * from student";
-  var sql="select student.stu_name,student.stu_sex,student.stu_num,student.stu_nation,student.stu_identity_card,student.stu_birth_date,student.stu_photo,"
+  var sql="select student.stu_id,student.stu_name,student.stu_sex,student.stu_num,student.stu_nation,student.stu_identity_card,student.stu_birth_date,student.stu_photo,"
     +"s_class.s_class_id,s_class_name,major.major_id,major_name,college.col_id,college.col_name "
     +"from student,s_class,major,college "
     +"where student.s_class_id=s_class.s_class_id "
@@ -60,9 +60,11 @@ router.get("/",function (req,res,next) {
     }
     count=rows.length;
     returnData=rows.splice((page-1)*pageSize,pageSize)
-    // for(let i=0;i<returnData.length;i++){
-    //   returnData[i].stu_birth_date=returnData[i].stu_birth_date.toLocaleDateString();
-    // }
+    for(let i=0;i<returnData.length;i++){
+      if(returnData[i].stu_birth_date){
+        returnData[i].stu_birth_date=returnData[i].stu_birth_date.toLocaleDateString();
+      }
+    }
     suData.data=returnData;
     suData.count=count;
     res.send(suData)

@@ -51,7 +51,7 @@
             active-text-color="rgb(255, 208, 75)">
           <el-menu-item index="/managerHome">个人信息</el-menu-item>
           <el-submenu index="2">
-            <template slot="title"><span class="iconfont icon-geren wrapper-right-top-icon"></span>名字</template>
+            <template slot="title"><span class="iconfont icon-geren wrapper-right-top-icon"></span>{{userName}}(管理员)</template>
             <el-menu-item index="/"><span class="iconfont icon-tuichu1 wrapper-right-top-item-icon"></span>退出</el-menu-item>
           </el-submenu>
         </el-menu>
@@ -66,7 +66,13 @@
       return{
         isCollapse:false,
         leftWidth:230,
+        userName:"",
       }
+    },
+    created(){
+      let userInfo=localStorage.getItem("userInfo");
+      userInfo=JSON.parse(userInfo);
+      this.userName=userInfo.man_name;
     },
     methods:{
       collapseClick:function () {
