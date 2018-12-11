@@ -27,8 +27,7 @@
             <i class="wrapper-left-left-icon iconfont icon-kecheng"></i>
             <span slot="title">教工管理</span>
           </template>
-          <el-menu-item index="2-1">教师管理</el-menu-item>
-          <el-menu-item index="2-2">选项2</el-menu-item>
+          <el-menu-item index="/managerHome/manageTeacher">教工列表</el-menu-item>
         </el-submenu>
         <el-submenu index="/homeManager/manageCollege">
           <template slot="title">

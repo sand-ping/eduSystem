@@ -36,7 +36,7 @@
       <div class="searchWrap-right"></div>
     </div>
 
-    <div class="wrap-center">
+    <div class="wrap-center" v-loading="allLoading">
       <el-table :data="studentList" style="width: 100%" class="wrap-table">
         <el-table-column prop="stu_num" label="学号" width="180"></el-table-column>
         <el-table-column prop="stu_name" label="姓名" width="180"></el-table-column>
@@ -197,6 +197,7 @@ export default{
       stu_collegeList:[], //学生信息框中的学院列表
       stu_majorList:[],
       stu_classList:[],
+      allLoading:false,
     }
   },
   created(){
@@ -216,7 +217,9 @@ export default{
         "major_id":root.majorIndex,
         "class_id":root.classIndex,
       }
+      root.allLoading=true;
       this.Http.get("stuList",para).then((res)=>{
+        root.allLoading=false;
         if(res.data.success){
           let data=res.data.data;
           for(let i=0;i<data.length;i++){
@@ -344,6 +347,7 @@ export default{
       this.classIndex="";
       this.classList=[];
       this.getStudentList();
+      this.getCollege(1);
     },
     //显示学生信息
     showStuInfo:function (option) {

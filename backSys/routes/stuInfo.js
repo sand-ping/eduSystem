@@ -54,7 +54,6 @@ router.post('/',function (req,res,next) {
       res.send(faData);
       return
     }
-    console.log(rows)
     res.send(suData);
     return
   })
