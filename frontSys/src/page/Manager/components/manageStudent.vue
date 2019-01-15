@@ -38,13 +38,13 @@
 
     <div class="wrap-center" v-loading="allLoading">
       <el-table :data="studentList" style="width: 100%" class="wrap-table">
-        <el-table-column prop="stu_num" label="学号" width="180"></el-table-column>
-        <el-table-column prop="stu_name" label="姓名" width="180"></el-table-column>
-        <el-table-column prop="stu_sex" label="性别" width="180"></el-table-column>
-        <el-table-column prop="stu_nation" label="民族" width="180"></el-table-column>
-        <el-table-column prop="stu_birth_date" label="出生年月" width="180"></el-table-column>
+        <el-table-column prop="stu_num" label="学号" max-width="180"></el-table-column>
+        <el-table-column prop="stu_name" label="姓名" max-width="180"></el-table-column>
+        <el-table-column prop="stu_sex" label="性别" max-width="180"></el-table-column>
+        <el-table-column prop="stu_nation" label="民族" max-width="180"></el-table-column>
+        <el-table-column prop="stu_birth_date" label="出生年月" max-width="180"></el-table-column>
         <el-table-column prop="major_name" label="所在专业"></el-table-column>
-        <el-table-column prop="s_class_name" label="所在班级" width="180"></el-table-column>
+        <el-table-column prop="s_class_name" label="所在班级" max-width="180"></el-table-column>
         <el-table-column
             fixed="right"
             label="操作"
@@ -363,7 +363,7 @@ export default{
       }else{
         option.stu_sex=1;
       }
-      this.stuInfo=option;
+      this.stuInfo = JSON.parse(JSON.stringify(option));
       this.isEdit=true;
       this.isAdd=false;
       this.getCollege(2,0);

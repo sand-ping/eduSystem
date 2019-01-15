@@ -4,18 +4,18 @@
     <!--搜索部分-->
     <div class="searchWrap">
       <div class="searchWrap-left">
-        <el-input v-model="collegeName" placeholder="请输入学院" size="small"></el-input>
-        <el-button type="primary" icon="el-icon-search" class="searchWrap-button" @click="getCollegeList">搜索</el-button>
+        <el-input v-model="keyword" placeholder="请输入学院/专业" size="small"></el-input>
+        <el-button type="primary" icon="el-icon-search" class="searchWrap-button" @click="getMajorList">搜索</el-button>
         <el-button type="primary" class="searchWrap-button" @click="reset">重置</el-button>
       </div>
       <div class="searchWrap-right"></div>
     </div>
 
     <div class="wrap-center" v-loading="allLoading">
-      <el-table :data="collegeList" style="width: 100%" class="wrap-table">
-        <el-table-column prop="col_num" label="学院编号" max-width="180"></el-table-column>
+      <el-table :data="majorList" style="width: 100%" class="wrap-table">
+        <el-table-column prop="major_num" label="专业编号" max-width="180"></el-table-column>
+        <el-table-column prop="major_name" label="专业" max-width="180"></el-table-column>
         <el-table-column prop="col_name" label="学院" max-width="180"></el-table-column>
-        <el-table-column prop="tea_name" label="院长" max-width="180"></el-table-column>
         <el-table-column
             fixed="right"
             label="操作"
@@ -28,23 +28,23 @@
       </el-table>
     </div>
     <!--查看,编辑和添加教工信息-->
-    <el-dialog :visible.sync="showColInfoDialog" :title="isEdit?(isAdd?'添加学院':'编辑学院'):'查看学院信息'" class="dialog">
+    <el-dialog :visible.sync="showColInfoDialog" :title="isEdit?(isAdd?'添加专业':'编辑专业'):'查看专业信息'" class="dialog">
       <el-row class="dialogRow">
-        <div class="dialogRow-left">编号：</div>
-        <el-input v-model="collegeInfo.col_num" placeholder="请输入学院编号" :disabled="!isAdd"></el-input>
+        <div class="dialogRow-left">专业编号：</div>
+        <el-input v-model="majorInfo.major_num" placeholder="请输入专业编号" :disabled="!isAdd"></el-input>
       </el-row>
       <el-row class="dialogRow">
-        <div class="dialogRow-left">学院：</div>
-        <el-input v-model="collegeInfo.col_name" placeholder="请输入学院名称" :disabled="!isEdit"></el-input>
+        <div class="dialogRow-left">专业名称：</div>
+        <el-input v-model="majorInfo.major_name" placeholder="请输入专业名称" :disabled="!isEdit"></el-input>
       </el-row>
       <el-row class="dialogRow">
-        <div class="dialogRow-left">院长：</div>
-        <el-select v-model="collegeInfo.tea_name" placeholder="请选择院长" :disabled="!isEdit" class="rowSelect" @change="collegeChange">
+        <div class="dialogRow-left">学院名称：</div>
+        <el-select v-model="majorInfo.col_name" placeholder="请选择学院" :disabled="!isEdit" class="rowSelect" @change="collegeChange">
           <el-option
-              v-for="(item,index) in teacherList"
-              :key="item.tea_id"
-              :label="item.tea_name"
-              :value="item.tea_id">
+              v-for="(item,index) in collegeList"
+              :key="item.col_id"
+              :label="item.col_name"
+              :value="item.col_id">
           </el-option>
         </el-select>
       </el-row>
@@ -58,7 +58,7 @@
       <div class="footerWrap-left">
         <el-button type="primary" @click="showAddColInfo" size="small">添加</el-button>
       </div>
-      <el-pagination @size-change="getCollegeList" @current-change="getCollegeList" :current-page="currentPage"
+      <el-pagination @size-change="getMajorList" @current-change="getMajorList" :current-page="currentPage"
                      :page-sizes="[10, 20, 30]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
@@ -71,9 +71,9 @@
     components: {ElCol},
     data(){
       return{
+        majorList:[],
         collegeList:[],
-        teacherList:[],
-        collegeInfo:{},
+        majorInfo:{},
         pageSize:10,
         currentPage:1,
         total:0,
@@ -81,37 +81,37 @@
         isAdd:false,
         showColInfoDialog:false,
         allLoading:false,
-        collegeName:"",
+        keyword:"",
       }
     },
     created(){
-      this.getCollegeList();
+      this.getMajorList();
     },
     methods: {
-      //获取学院列表
-      getCollegeList: function () {
+      //获取专业列表
+      getMajorList: function () {
         let root = this;
         let para = {
           "page": root.currentPage,
           "pageSize": root.pageSize,
-          "col_name": root.collegeName,
+          "keyword": root.keyword,
         }
         root.allLoading = true;
-        this.Http.get("collegeList", para).then((res) => {
+        this.Http.get("majorList", para).then((res) => {
           root.allLoading = false;
           if (res.data.success) {
-            root.collegeList = res.data.data;
+            root.majorList = res.data.data;
             root.total = res.data.count;
           }
         })
       },
-      //获取教师列表
-      getTeacherList:function () {
+      //获取学院列表
+      getCollegeList:function () {
         let root=this;
-        this.Http.get("teaList").then((res)=>{
+        this.Http.get("college").then((res)=>{
           if(res.data.success){
             let data=res.data.data;
-            root.teacherList=data;
+            root.collegeList=data;
           }
         })
       },
@@ -120,52 +120,52 @@
         this.pageSize = 10;
         this.currentPage = 1;
         this.total = 0;
-        this.collegeName="";
-        this.getCollegeList();
+        this.keyword="";
+        this.getMajorList();
       },
-      //显示学院信息
+      //显示专业信息
       showColInfo: function (option) {
         this.showColInfoDialog = true;
-        this.collegeInfo = option;
+        this.majorInfo = option;
         this.isEdit = false;
       },
-      //显示编辑学院信息
+      //显示编辑专业信息
       showEditColInfo: function (option) {
         this.showColInfoDialog = true;
-        this.collegeInfo = JSON.parse(JSON.stringify(option));
+        this.majorInfo = JSON.parse(JSON.stringify(option));
         this.isEdit = true;
         this.isAdd = false;
-        this.getTeacherList();
+        this.getCollegeList();
       },
-      //显示添加学院信息
+      //显示添加专业信息
       showAddColInfo: function () {
         this.showColInfoDialog = true;
         this.isEdit = true;
         this.isAdd = true;
-        this.collegeInfo = {
-          "col_num":"",
-          "col_name":"",
-          "tea_id":"",
-          "tea_name":"",
+        this.majorInfo = {
+          "major_num":"",
+          "col_id":"",
+          "major_id":"",
+          "major_name":"",
         }
       },
-      //需要上传的学院信息
+      //需要上传的专业信息
       getData: function () {
-        let collegeInfo = this.collegeInfo;
+        let majorInfo = this.majorInfo;
         return {
-          col_id: collegeInfo.col_id,
-          col_num: collegeInfo.col_num,
-          col_name: collegeInfo.col_name,
-          tea_id: collegeInfo.tea_id,
+          col_id: majorInfo.col_id,
+          major_num: majorInfo.major_num,
+          major_name: majorInfo.major_name,
+          major_id: majorInfo.major_id,
         }
       },//编辑
       editColInfo:function () {
         let root=this;
         let para=root.getData()
-        this.Http.put('college',para).then((res)=>{
+        this.Http.put('major',para).then((res)=>{
           if(res.data.success){
             root.showColInfoDialog=false;
-            root.getCollegeList();
+            root.getMajorList();
             this.$message({
               title: '提示',
               message: '修改成功',
@@ -184,10 +184,10 @@
       addColInfo: function () {
         let root = this;
         let para = root.getData()
-        this.Http.post('college', para).then((res) => {
+        this.Http.post('major', para).then((res) => {
           if (res.data.success) {
             root.showColInfoDialog = false;
-            root.getCollegeList()
+            root.getMajorList()
             this.$message({
               title: '提示',
               message: '添加成功',
@@ -203,14 +203,14 @@
         })
       },
       collegeChange:function (value) {
-        this.collegeInfo.tea_id=value;
+        this.majorInfo.col_id=value;
       },
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  @import "../sass/manageTeacher";
+  @import "../sass/manageMajor";
 </style>
 <style lang="scss">
   /*修改组件内部样式不可以使用scoped*/

@@ -8,6 +8,8 @@ import ManagerInfo from '@/page/Manager/components/manager-info'
 import ManageStudent from '@/page/Manager/components/manageStudent'
 import ManageCollege from '@/page/Manager/components/manageCollege'
 import ManageTeacher from '@/page/Manager/components/manageTeacher'
+import ManageMajor from '@/page/Manager/components/manageMajor'
+import ManageClass from '@/page/Manager/components/manageClass'
 import TeacherHome from '@/page/Teacher/components/teacher-home'
 import TeacherInfo from '@/page/Teacher/components/teacher-info'
 
@@ -65,7 +67,17 @@ export default new Router({
           path:'manageTeacher',
           name:'ManageTeacher',
           component:ManageTeacher,
-        }
+        },
+        {
+          path:'manageMajor',
+          name:'ManageMajor',
+          component:ManageMajor,
+        },
+        {
+          path:'manageClass',
+          name:'ManageClass',
+          component:ManageClass,
+        },
       ]
     }
   ]

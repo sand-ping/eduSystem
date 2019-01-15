@@ -24,8 +24,12 @@ var teacherRouter=require('./routes/teacher');
 var teaInfoRouter=require('./routes/teaInfo');
 var teaListRouter=require('./routes/teaList');
 var sClassRouter=require('./routes/sClass');
+var sClassListRouter=require('./routes/sClassList');
 var majorRouter=require('./routes/major');
+var majorListRouter=require('./routes/majorList');
 var collegeRouter=require('./routes/college');
+var collegeListRouter=require('./routes/collegeList');
+
 
 var app = express();
 // view engine setup
@@ -74,8 +78,11 @@ app.use('/api/teaList',teaListRouter);
 app.use('/api/manInfo', manInfoRouter);
 app.use('/api/manager_college', manager_college);
 app.use('/api/sClass', sClassRouter);
+app.use('/api/sClassList', sClassListRouter);
 app.use('/api/major', majorRouter);
+app.use('/api/majorList', majorListRouter);
 app.use('/api/college', collegeRouter);
+app.use('/api/collegeList', collegeListRouter);
 
 
 

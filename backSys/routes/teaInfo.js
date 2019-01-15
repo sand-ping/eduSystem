@@ -10,17 +10,32 @@ var faData=returnData.faData;
 
 router.get('/',function (req,res,next) {
   let data=req.query;
-  let sql="select * from teacher where tea_id=?";
+  let searchArr=[];
+  let sql="select * from teacher";
+  //单个搜索
+  if(data.type!=1){
+    sql="select * from teacher where tea_id=?";
+    searchArr.push(data.id)
+  }
   let connection=mysql.createConnection(db.mysql);
-  connection.query(sql,[data.id],function (err,rows) {
+  connection.query(sql,searchArr,function (err,rows) {
     if(err){
       faData.message=err;
       res.send(faData);
       return
     }else{
-      suData.data=rows[0];
-      if(rows[0].man_birth_date){
-        suData.data.tea_birth_date=rows[0].tea_birth_date.toLocaleDateString();
+      if(data.type!=1){
+        suData.data=rows[0];
+        if(rows[0].man_birth_date){
+          suData.data.tea_birth_date=rows[0].tea_birth_date.toLocaleDateString();
+        }
+      }else{
+        suData.data=rows;
+        for(let i=0;i<rows.length;i++){
+          if(rows[i].man_birth_date){
+            suData[i].data.tea_birth_date=rows[i].tea_birth_date.toLocaleDateString();
+          }
+        }
       }
       res.send(suData);
       return

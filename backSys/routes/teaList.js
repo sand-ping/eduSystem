@@ -23,22 +23,22 @@ router.get("/",function (req,res,next) {
     +"and teacher.tea_name like ? "
     +"and major.major_id like ? "
     +"and college.col_id like ?";
-  if(param.teaNum!=""){
+  if(param.teaNum!=""&&param.teaNum!=undefined){
     searchArr.push("%"+param.teaNum+"%");
   }else{
     searchArr.push('%');
   }
-  if(param.teaName!=""){
+  if(param.teaName!=""&&param.teaName!=undefined){
     searchArr.push("%"+param.teaName+"%");
   }else{
     searchArr.push('%');
   }
-  if(param.major_id!=""){
+  if(param.major_id!=""&&param.major_id!=undefined){
     searchArr.push(param.major_id);
   }else{
     searchArr.push('%');
   }
-  if(param.college_id!=""){
+  if(param.college_id!=""&&param.college_id!=undefined){
     searchArr.push(param.college_id);
   }else{
     searchArr.push('%');

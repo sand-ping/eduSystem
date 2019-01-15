@@ -31,11 +31,11 @@
 
     <div class="wrap-center" v-loading="allLoading">
       <el-table :data="teacherList" style="width: 100%" class="wrap-table">
-        <el-table-column prop="tea_num" label="工号" width="180"></el-table-column>
-        <el-table-column prop="tea_name" label="姓名" width="180"></el-table-column>
-        <el-table-column prop="tea_sex" label="性别" width="180"></el-table-column>
-        <el-table-column prop="tea_nation" label="民族" width="180"></el-table-column>
-        <el-table-column prop="tea_birth_date" label="出生年月" width="180"></el-table-column>
+        <el-table-column prop="tea_num" label="工号" max-width="180"></el-table-column>
+        <el-table-column prop="tea_name" label="姓名" max-width="180"></el-table-column>
+        <el-table-column prop="tea_sex" label="性别" max-width="180"></el-table-column>
+        <el-table-column prop="tea_nation" label="民族" max-width="180"></el-table-column>
+        <el-table-column prop="tea_birth_date" label="出生年月" max-width="180"></el-table-column>
         <el-table-column prop="major_name" label="所在专业"></el-table-column>
         <el-table-column
             fixed="right"
@@ -303,7 +303,7 @@
         }else{
           option.tea_sex=1;
         }
-        this.teaInfo=option;
+        this.teaInfo = JSON.parse(JSON.stringify(option));
         this.isEdit=true;
         this.isAdd=false;
         this.getCollege(2,0);

@@ -17,25 +17,26 @@
         </el-submenu>
         <el-submenu index="/managerHome/manageStudent">
           <template slot="title">
-            <i class="wrapper-left-left-icon iconfont icon-yonghudianji"></i>
+            <i class="wrapper-left-left-icon iconfont icon-xuesheng"></i>
             <span slot="title">学生管理</span>
           </template>
           <el-menu-item index="/managerHome/manageStudent">学生列表</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">
-            <i class="wrapper-left-left-icon iconfont icon-kecheng"></i>
+            <i class="wrapper-left-left-icon iconfont icon-jiaoshi"></i>
             <span slot="title">教工管理</span>
           </template>
           <el-menu-item index="/managerHome/manageTeacher">教工列表</el-menu-item>
         </el-submenu>
         <el-submenu index="/homeManager/manageCollege">
           <template slot="title">
-            <i class="wrapper-left-left-icon iconfont icon-chengji"></i>
+            <i class="wrapper-left-left-icon iconfont icon-school"></i>
             <span slot="title">学院管理</span>
           </template>
           <el-menu-item index="/managerHome/manageCollege">学院管理</el-menu-item>
-          <el-menu-item index="3-2">班级管理</el-menu-item>
+          <el-menu-item index="/managerHome/manageMajor">专业管理</el-menu-item>
+          <el-menu-item index="/managerHome/manageClass">班级管理</el-menu-item>
         </el-submenu>
       </el-menu>
     </div>

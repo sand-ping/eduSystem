@@ -28,5 +28,35 @@ router.get('/',function (req,res,next) {
     return
   })
 })
-
+router.put('/',function (req,res,next) {
+  let param=req.body;
+  let para=[param.major_num,param.major_name,param.col_id,param.major_id];
+  let sql="update major set major_num=?,major_name=?,col_id=? where major_id=?";
+  let connection=mysql.createConnection(db.mysql);
+  connection.query(sql,para,function (err,rows) {
+    if(err){
+      faData.message=err;
+      res.send(faData);
+      return
+    }
+    res.send(suData);
+    return
+  })
+})
+router.post('/',function (req,res,next) {
+  let param=req.body;
+  let para=[param.major_num,param.major_name,param.col_id];
+  let sql="insert into major(major_num,major_name,col_id) values(?,?,?)";
+  let connection=mysql.createConnection(db.mysql);
+  connection.query(sql,para,function (err,rows) {
+    if(err){
+      faData.message=err;
+      res.send(faData);
+      return
+    }
+    console.log(rows)
+    res.send(suData);
+    return
+  })
+})
 module.exports=router;
