@@ -1,6 +1,6 @@
 # frontsys
 
-> A Vue.js project
+> An education system project by vue.js
 
 ## Build Setup
 
